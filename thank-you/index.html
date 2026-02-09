@@ -1,24 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thanks — Fencing Orlando</title>
-  <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="/assets/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | FencingOrlando.com</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/site.config.js"></script>
 </head>
 <body>
-  <main class="section">
-    <div class="container">
-      <div class="card">
-        <h1>Thanks — we got your request.</h1>
-        <p class="muted">We’ll reach out as soon as possible. If it’s urgent, call now.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="tel:+14075550123">Call (407) 555-0123</a>
-          <a class="btn btn-secondary" href="/">Back to site</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo-link" aria-label="FencingOrlando Home">
+                <img src="/assets/logo.svg" alt="FencingOrlando.com" width="160" height="36">
+            </a>
         </div>
-      </div>
-    </div>
-  </main>
+    </header>
+
+    <main class="section" style="min-height:60vh;display:flex;align-items:center;justify-content:center">
+        <div class="container" style="text-align:center;max-width:560px">
+            <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h1 style="font-size:2rem;margin-bottom:12px;color:var(--text-primary)">Thank You!</h1>
+            <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:32px;line-height:1.7">We received your quote request and will be in touch shortly. One of our fencing specialists will reach out within 1 business day.</p>
+            <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+                <a href="/" class="btn btn-secondary" data-testid="link-back-home">Back to Home</a>
+                <a href="tel:+14075550123" class="btn btn-primary btn-phone-icon" id="ty-phone" data-testid="link-phone-thankyou">
+                    <span>(407) 555-0123</span>
+                </a>
+            </div>
+            <p style="margin-top:24px;font-size:0.875rem;color:var(--text-tertiary)">Need immediate help? Give us a call anytime.</p>
+        </div>
+    </main>
+
+    <footer class="site-footer" style="padding:24px 0">
+        <div class="container">
+            <div class="footer-bottom" style="margin:0;padding:0;border:none">
+                &copy; <span id="ty-year">2026</span> FencingOrlando.com. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        var cfg = window.SITE_CONFIG;
+        if (!cfg) return;
+        var yearEl = document.getElementById("ty-year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+        var phoneEl = document.getElementById("ty-phone");
+        if (phoneEl && cfg.business) {
+            phoneEl.href = cfg.business.phoneLink;
+            phoneEl.querySelector("span").textContent = cfg.business.phone;
+        }
+    })();
+    </script>
 </body>
 </html>

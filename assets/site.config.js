@@ -1,0 +1,85 @@
+window.SITE_CONFIG = {
+  business: {
+    name: "FencingOrlando.com",
+    tagline: "Orlando's Trusted Fence Professionals",
+    phone: "(407) 555-0123",
+    phoneLink: "tel:+14075550123",
+    email: "hello@fencingorlando.com",
+    address: "Orlando, FL",
+    license: "Licensed & insured (as applicable)",
+  },
+  seo: {
+    title: "Fence Installation & Repair Orlando FL | Free Quote | FencingOrlando",
+    description: "Top-rated fence installation & repair in Orlando, FL. Wood, vinyl, aluminum, chain link, gates & privacy fencing. Fast scheduling, fair prices. Call for a free quote!",
+    url: "https://fencingorlando.com",
+    image: "/assets/hero.jpg",
+  },
+  hero: {
+    headline: "Install or Repair a Fence in Orlando \u2014 Get a Fast Quote",
+    subhead: "Wood, vinyl, aluminum, chain link, gates & privacy fencing. Experienced pros, fast scheduling, and upfront pricing for homeowners across Greater Orlando.",
+    ctaText: "Get Your Free Estimate",
+    ctaLink: "#contact",
+  },
+  services: [
+    {
+      id: "installation",
+      title: "Fence Installation",
+      slug: "fence-installation-orlando",
+      description: "Custom wood, vinyl, aluminum, and chain link fence installation for residential and commercial properties. We handle everything from design to completion.",
+      image: "/assets/services/installation.jpg",
+    },
+    {
+      id: "repair",
+      title: "Fence Repair",
+      slug: "fence-repair-orlando",
+      description: "Fast, reliable repairs for storm damage, rotting posts, leaning panels, and broken gates. We restore your fence to like-new condition.",
+      image: "/assets/services/repair.jpg",
+    },
+    {
+      id: "gates",
+      title: "Gate Installation",
+      description: "Single, double, and automated gate solutions designed for easy access and enhanced security. Durable hardware built for Florida weather.",
+      image: "/assets/services/gates.jpg",
+    },
+  ],
+  trustPoints: [
+    "Free, No-Obligation Estimates",
+    "Licensed & insured (as applicable)",
+    "Premium Materials",
+    "Fast Scheduling & Completion",
+    "Satisfaction Guaranteed",
+    "Florida Weather-Rated",
+  ],
+  areas: [
+    { name: "Orlando" },
+    { name: "Winter Park", slug: "winter-park-fencing" },
+    { name: "Maitland" },
+    { name: "Altamonte Springs" },
+    { name: "Casselberry" },
+    { name: "Oviedo" },
+    { name: "Apopka" },
+    { name: "Lake Mary" },
+    { name: "Sanford" },
+    { name: "Kissimmee" },
+    { name: "Doctor Phillips" },
+    { name: "Lake Nona" },
+  ],
+  faq: [
+    {
+      question: "How much does a new fence cost in Orlando?",
+      answer: "Cost depends on material (wood, vinyl, aluminum, or chain link), linear footage, terrain, and gate requirements. We provide free, transparent estimates after a quick site visit\u2014no hidden fees.",
+    },
+    {
+      question: "Do you handle permits and HOA approval?",
+      answer: "Absolutely. We guide you through the permitting process and provide all necessary drawings and documentation for your HOA application, saving you time and hassle.",
+    },
+    {
+      question: "How long does fence installation take?",
+      answer: "Most residential projects are completed in 1\u20132 days once materials arrive on-site. Larger properties or custom designs may take 2\u20133 days. We\u2019ll give you a clear timeline upfront.",
+    },
+    {
+      question: "What is the best fencing material for Florida weather?",
+      answer: "Vinyl and aluminum hold up best against humidity, UV, and rain. Pressure-treated pine is also an excellent cost-effective option when maintained properly. We\u2019ll help you choose the right material for your budget and needs.",
+    },
+  ],
+};
