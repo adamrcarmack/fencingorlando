@@ -2,11 +2,11 @@ window.SITE_CONFIG = {
   business: {
     name: "FencingOrlando.com",
     tagline: "Orlando's Trusted Fence Professionals",
-    phone: "(407) 555-0123",
-    phoneLink: "tel:+14075550123",
+    phone: "(407) 708-9338",
+    phoneLink: "tel:+14077089338",
     email: "hello@fencingorlando.com",
     address: "Orlando, FL",
-    license: "Licensed & insured (as applicable)",
+    license: "Licensed & insured",
   },
   seo: {
     title: "Fence Installation & Repair Orlando FL | Free Quote | FencingOrlando",
