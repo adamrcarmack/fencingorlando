@@ -115,7 +115,8 @@
   function bindContactForm(cfg) {
   // Try common form IDs; adjust if yours is different
   var form =
-    document.getElementById("contactForm") ||
+    document.getElementById("quote-form") ||
+    if (!form) return;
     document.getElementById("contact-form") ||
     document.querySelector("form[data-contact-form]") ||
     document.querySelector("form[action*='contact']");
