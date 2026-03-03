@@ -13,6 +13,8 @@
     renderAreas(cfg);
     renderFooter(cfg);
     setSeoTitle(cfg);
+    
+    bindContactForm(cfg);
   });
 
   function resolve(obj, path) {
@@ -109,4 +111,80 @@
       document.title = cfg.seo.title;
     }
   }
+
+  function bindContactForm(cfg) {
+  // Try common form IDs; adjust if yours is different
+  var form =
+    document.getElementById("contactForm") ||
+    document.getElementById("contact-form") ||
+    document.querySelector("form[data-contact-form]") ||
+    document.querySelector("form[action*='contact']");
+
+  if (!form) return;
+
+  // Optional status element
+  var statusEl =
+    document.getElementById("formStatus") ||
+    document.getElementById("contactStatus") ||
+    form.querySelector("[data-form-status]");
+
+  function setStatus(msg) {
+    if (statusEl) statusEl.textContent = msg;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    setStatus("Sending…");
+
+    var fd = new FormData(form);
+
+    // Honeypot support: if you add <input name="company"> hidden, bots get caught
+    var hp = (fd.get("company") || "").toString().trim();
+    if (hp) {
+      setStatus("Thanks! We’ll be in touch shortly.");
+      form.reset();
+      return;
+    }
+
+    // Collect fields by name= attributes
+    var payload = {
+      name: (fd.get("name") || "").toString().trim(),
+      email: (fd.get("email") || "").toString().trim(),
+      phone: (fd.get("phone") || "").toString().trim(),
+      message: (fd.get("message") || "").toString().trim(),
+      company: hp // keep for backend honeypot check
+    };
+
+    // Basic client-side validation
+    if (!payload.name || !payload.email || !payload.message) {
+      setStatus("Please fill in name, email, and message.");
+      return;
+    }
+
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok) {
+            throw new Error(data.error || "Request failed");
+          }
+          return data;
+        });
+      })
+      .then(function () {
+        setStatus("Sent! We’ll reach out soon.");
+        form.reset();
+
+        // Optional redirect if you want:
+        // window.location.href = "/thank-you/";
+      })
+      .catch(function (err) {
+        console.error(err);
+        setStatus("Something went wrong. Please try again.");
+      });
+  });
+}
 })();
