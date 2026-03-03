@@ -43,20 +43,19 @@ export async function onRequestPost(context) {
     });
 
     if (!resp.ok) {
-      const detail = await resp.text().catch(() => "");
-      return new Response(JSON.stringify({ error: "Mail send failed", detail }), {
-        status: 502,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+  const detail = await resp.text().catch(() => "");
+  return new Response(JSON.stringify({ error: "Mail send failed", detail }), {
+    status: 502,
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: "Server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+  return new Response(JSON.stringify({ error: "Server error", detail: String(err) }), {
+    status: 500,
+    headers: { "Content-Type": "application/json" },
+  });
 }
