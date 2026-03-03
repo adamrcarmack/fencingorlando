@@ -113,17 +113,11 @@
   }
 
   function bindContactForm(cfg) {
-  // Try common form IDs; adjust if yours is different
-  var form =
-    document.getElementById("quote-form") ||
-    if (!form) return;
-    document.getElementById("contact-form") ||
-    document.querySelector("form[data-contact-form]") ||
-    document.querySelector("form[action*='contact']");
-
+  // Your form is <form id="quote-form"> in index.html
+  var form = document.getElementById("quote-form");
   if (!form) return;
 
-  // Optional status element
+  // Optional status element (add one if you want, otherwise this is harmless)
   var statusEl =
     document.getElementById("formStatus") ||
     document.getElementById("contactStatus") ||
@@ -139,26 +133,25 @@
 
     var fd = new FormData(form);
 
-    // Honeypot support: if you add <input name="company"> hidden, bots get caught
+    // Honeypot (only works if you add <input name="company" style="display:none">)
     var hp = (fd.get("company") || "").toString().trim();
     if (hp) {
-      setStatus("Thanks! We’ll be in touch shortly.");
-      form.reset();
+      window.location.href = "/thank-you/";
       return;
     }
 
-    // Collect fields by name= attributes
     var payload = {
       name: (fd.get("name") || "").toString().trim(),
-      email: (fd.get("email") || "").toString().trim(),
-      phone: (fd.get("phone") || "").toString().trim(),
-      message: (fd.get("message") || "").toString().trim(),
-      company: hp // keep for backend honeypot check
+      phone: (fd.get("phone") || "").toString().trim(), // required on your form
+      email: (fd.get("email") || "").toString().trim(), // optional
+      service: (fd.get("service") || "").toString().trim(),
+      message: (fd.get("message") || "").toString().trim(), // optional
+      company: hp
     };
 
-    // Basic client-side validation
-    if (!payload.name || !payload.email || !payload.message) {
-      setStatus("Please fill in name, email, and message.");
+    // Match your form’s reality: require name + phone
+    if (!payload.name || !payload.phone) {
+      setStatus("Please enter your name and phone number.");
       return;
     }
 
@@ -169,18 +162,13 @@
     })
       .then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
-          if (!res.ok) {
-            throw new Error(data.error || "Request failed");
-          }
+          if (!res.ok) throw new Error(data.error || "Request failed");
           return data;
         });
       })
       .then(function () {
-        setStatus("Sent! We’ll reach out soon.");
-        form.reset();
-
-        // Optional redirect if you want:
-        // window.location.href = "/thank-you/";
+        // Same behavior as your old FormSubmit _next
+        window.location.href = "/thank-you/";
       })
       .catch(function (err) {
         console.error(err);
