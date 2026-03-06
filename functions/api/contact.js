@@ -54,15 +54,16 @@ export async function onRequestPost(context) {
     const respText = await resp.text().catch(() => "");
 
     if (!resp.ok) {
-      return json(
-        {
-          error: "MailChannels send failed",
-          status: resp.status,
-          response: respText,
+      const respText = await resp.text().catch(() => "");
+      return new Response(
+        JSON.stringify({
+          mail_ok: false,
+          mail_status: resp.status,
+          mail_response: respText,
           from: env.FROM_EMAIL,
-          to: env.TO_EMAIL,
-        },
-        502
+          to: env.TO_EMAIL
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
       );
     }
 
