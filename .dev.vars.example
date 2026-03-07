@@ -1,0 +1,6 @@
+# Copy this file to .dev.vars for local development with `wrangler pages dev`
+# Set these same variables in the Cloudflare Pages dashboard:
+#   Settings > Environment Variables
+
+TO_EMAIL=your-email@example.com
+FROM_EMAIL=noreply@yourdomain.com

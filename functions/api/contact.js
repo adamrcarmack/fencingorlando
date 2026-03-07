@@ -54,7 +54,6 @@ export async function onRequestPost(context) {
     const respText = await resp.text().catch(() => "");
 
     if (!resp.ok) {
-      const respText = await resp.text().catch(() => "");
       return new Response(
         JSON.stringify({
           mail_ok: false,
