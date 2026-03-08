@@ -26,8 +26,8 @@ export async function onRequestPost(context) {
       return json({ error: "Missing required fields", got: { name: !!name, phone: !!phone } }, 400);
     }
 
-    if (!env.TO_EMAIL || !env.FROM_EMAIL) {
-      return json({ error: "Email env vars not set", has: { TO_EMAIL: !!env.TO_EMAIL, FROM_EMAIL: !!env.FROM_EMAIL } }, 500);
+    if (!env.RESEND_API_KEY || !env.TO_EMAIL) {
+      return json({ error: "Email env vars not set", has: { RESEND_API_KEY: !!env.RESEND_API_KEY, TO_EMAIL: !!env.TO_EMAIL } }, 500);
     }
 
     const text =
@@ -38,16 +38,19 @@ export async function onRequestPost(context) {
       `Message:\n${message || "(no message)"}`;
 
     const payload = {
-      personalizations: [{ to: [{ email: env.TO_EMAIL }] }],
-      from: { email: env.FROM_EMAIL, name: "Fencing Orlando Lead" },
-      reply_to: { email: email || env.TO_EMAIL, name },
+      from: "Fencing Orlando <noreply@fencingorlando.com>",
+      to: [env.TO_EMAIL],
+      reply_to: email || env.TO_EMAIL,
       subject: "New Lead - Fencing Orlando",
-      content: [{ type: "text/plain", value: text }],
+      text,
     };
 
-    const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
+    const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+      },
       body: JSON.stringify(payload),
     });
 
@@ -59,7 +62,7 @@ export async function onRequestPost(context) {
           mail_ok: false,
           mail_status: resp.status,
           mail_response: respText,
-          from: env.FROM_EMAIL,
+          from: "noreply@fencingorlando.com",
           to: env.TO_EMAIL
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }
