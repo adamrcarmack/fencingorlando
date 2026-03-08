@@ -46,27 +46,28 @@ export async function onRequestPost(context) {
     };
 
     const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+  method: "POST",
+  headers: {
+    "content-type": "application/json",
+    "X-Api-Key": "null"
+  },
+  body: JSON.stringify(payload),
+});
 
     const respText = await resp.text().catch(() => "");
 
     if (!resp.ok) {
-      const respText = await resp.text().catch(() => "");
-      return new Response(
-        JSON.stringify({
-          mail_ok: false,
-          mail_status: resp.status,
-          mail_response: respText,
-          from: env.FROM_EMAIL,
-          to: env.TO_EMAIL
-        }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
+  return new Response(
+    JSON.stringify({
+      mail_ok: false,
+      mail_status: resp.status,
+      mail_response: respText,
+      from: env.FROM_EMAIL,
+      to: env.TO_EMAIL
+    }),
+    { status: 200, headers: { "Content-Type": "application/json" } }
+  );
+}
     return json({ success: true, response: respText }, 200);
   } catch (err) {
     // This is the key: always return JSON
