@@ -39,7 +39,7 @@ export async function onRequestPost(context) {
         `Message:\n${message || "(no message)"}`;
 
       const payload = {
-        from: "Fencing Orlando <noreply@fencingorlando.com>",
+        from: "Fencing Orlando <hello@fencingorlando.com>",
         to: [env.TO_EMAIL],
         reply_to: email || env.TO_EMAIL,
         subject: "New Lead - Fencing Orlando",
@@ -63,7 +63,7 @@ export async function onRequestPost(context) {
             mail_ok: false,
             mail_status: resp.status,
             mail_response: respText,
-            from: "noreply@fencingorlando.com",
+            from: "hello@fencingorlando.com",
             to: env.TO_EMAIL
           }),
           { status: 200, headers: { "Content-Type": "application/json" } }
